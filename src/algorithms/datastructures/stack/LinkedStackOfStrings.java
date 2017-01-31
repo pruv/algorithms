@@ -1,4 +1,4 @@
-package algorithms.datastructures;
+package algorithms.datastructures.stack;
 
 /**
  * Proposition: every operation takes constant time in the worst case.

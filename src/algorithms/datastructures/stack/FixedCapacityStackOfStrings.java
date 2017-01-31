@@ -1,4 +1,4 @@
-package algorithms.datastructures;
+package algorithms.datastructures.stack;
 
 /**
  * Created by java on 1/30/17.
