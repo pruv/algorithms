@@ -1,4 +1,4 @@
-package algorithms.datastructures.search;
+package algorithms.search;
 
 /**
  * Created by java on 1/31/17.
@@ -19,17 +19,17 @@ public class BinarySearch {
         System.out.println("Loop Count: "+ bs.getLoopCount());
     }
 
-    public int searchPerfect(int key){
+    public static int searchPerfect(int[] sortedList, int key){
         int lo =0;
-        int hi = sortedArray.length -1 ;
+        int hi = sortedList.length -1 ;
         while (lo <= hi) {
             int mid = lo + (hi-lo)/2;
-            if(key < sortedArray[mid]) {
+            if(key < sortedList[mid]) {
                 hi = mid-1;
-            } else if (key > sortedArray[mid]) {
+            } else if (key > sortedList[mid]) {
                 lo = mid +1;
             } else {
-                return sortedArray[mid];
+                return sortedList[mid];
             }
         }
         return -1;

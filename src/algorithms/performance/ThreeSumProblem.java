@@ -1,4 +1,4 @@
-package algorithms.datastructures;
+package algorithms.performance;
 
 import edu.princeton.cs.algs4.Stopwatch;
 
