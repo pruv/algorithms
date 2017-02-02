@@ -1,9 +1,11 @@
 package algorithms.datastructures.stack;
 
+import java.util.Iterator;
+
 /**
  * Created by java on 1/31/17.
  */
-public class ResizingArray<T> {
+public class ResizingArray<T> implements Iterable<T> {
 
     private T[] stack;
     int n;
@@ -38,5 +40,25 @@ public class ResizingArray<T> {
             resize(stack.length/2);
         }
         return s;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ResizingArrayIterator();
+    }
+
+    private class ResizingArrayIterator implements Iterator<T> {
+
+        int i = n;
+
+        @Override
+        public boolean hasNext() {
+            return i > 0;
+        }
+
+        @Override
+        public T next() {
+            return stack[--i];
+        }
     }
 }
