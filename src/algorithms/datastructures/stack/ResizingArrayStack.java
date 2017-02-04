@@ -5,12 +5,12 @@ import java.util.Iterator;
 /**
  * Created by java on 1/31/17.
  */
-public class ResizingArray<T> implements Iterable<T> {
+public class ResizingArrayStack<T> implements Iterable<T> {
 
     private T[] stack;
     int n;
 
-    public ResizingArray() {
+    public ResizingArrayStack() {
         stack = (T[])new Object[1];
     }
 
