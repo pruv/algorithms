@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 public class Deque<Item> implements Iterable<Item> {
 
-    private Node first = null;
+    private Node first = null; //
     private Node last = null;
     private Node linkingNode = null;
     private int size = 0;
@@ -55,8 +55,11 @@ public class Deque<Item> implements Iterable<Item> {
         }
 
         System.out.println("*************");
+        System.out.println("Is Empty: "+ deque.isEmpty());
 
         deque.addLast("l1");
+        System.out.println("Is Empty: " + deque.isEmpty());
+
         deque.addFirst("f1");
         deque.addLast("l2");
         deque.addFirst("f2");
