@@ -13,62 +13,13 @@ public class Deque<Item> implements Iterable<Item> {
     private byte firstInLast = 0;
 
     public static void main(String[] args) {
-        Deque<String> deque = new Deque<>();
-        deque.addLast("l1");
-        deque.addFirst("f1");
-        deque.addLast("l2");
-        deque.addFirst("f2");
-        deque.addFirst("f3");
-        deque.addLast("l3");
-        deque.addFirst("f4");
-
-        for (Object aDeque : deque) {
-            System.out.println(aDeque);
-        }
-
-        deque.removeFirst();
-        deque.removeFirst();
-        deque.removeFirst();
-        deque.removeFirst();
+        Deque<Integer> deque = new Deque<>();
+        deque.addLast(1);
         deque.removeFirst();
 
-        System.out.println("*************");
-
-        for (Object aDeque : deque) {
-            System.out.println(aDeque);
-        }
-
-        deque.removeLast();
-
-        System.out.println("*************");
-
-        for (Object aDeque : deque) {
-            System.out.println(aDeque);
-        }
-
-        deque.removeFirst();
-
-        System.out.println("*************");
-
-        for (Object aDeque : deque) {
-            System.out.println(aDeque);
-        }
-
-        System.out.println("*************");
-        System.out.println("Is Empty: "+ deque.isEmpty());
-
-        deque.addLast("l1");
-        System.out.println("Is Empty: " + deque.isEmpty());
-
-        deque.addFirst("f1");
-        deque.addLast("l2");
-        deque.addFirst("f2");
-        deque.addFirst("f3");
-        deque.addLast("l3");
-        deque.addFirst("f4");
-
-        for (Object aDeque : deque) {
-            System.out.println(aDeque);
+        Iterator iter = deque.iterator();
+        while (iter.hasNext()) {
+            System.out.println(iter.next());
         }
     }
 
@@ -144,6 +95,9 @@ public class Deque<Item> implements Iterable<Item> {
         if (isEmpty()) {
             throw new NoSuchElementException();
         }
+        if (first == null || first.item == null) {
+            first = linkingNode.next;
+        }
         Item item = first.item;
         first = first.next;
         if (first != null) {
@@ -154,16 +108,26 @@ public class Deque<Item> implements Iterable<Item> {
             }
         }
         size--;
-        if(size == 0) {
-            firstInFirst = 0;
-            firstInLast = 0;
+        if (size == 0) {
+            resetDeQueue();
         }
         return item;
+    }
+
+    private void resetDeQueue(){
+        first = null;
+        last = null;
+        firstInFirst = 0;
+        firstInLast = 0;
+        linkingNode = new Node();
     }
 
     public Item removeLast() {
         if (isEmpty()) {
             throw new NoSuchElementException();
+        }
+        if (last == null || last.item == null) {
+            last = linkingNode.previous;
         }
         Item item = last.item;
         last = last.previous;
@@ -175,9 +139,8 @@ public class Deque<Item> implements Iterable<Item> {
             }
         }
         size--;
-        if(size == 0) {
-            firstInFirst = 0;
-            firstInLast = 0;
+        if (size == 0) {
+            resetDeQueue();
         }
         return item;
     }
@@ -189,22 +152,33 @@ public class Deque<Item> implements Iterable<Item> {
 
     private class DequeIterator implements Iterator<Item> {
 
-        Node currentNode = first;
+        Node currentNode;
+
+        public DequeIterator() {
+            if (first == null) {
+                currentNode = linkingNode.next;
+            } else {
+                this.currentNode = first;
+            }
+        }
 
         @Override
         public boolean hasNext() {
-            return currentNode != null;
+            return currentNode != null && currentNode.item != null;
         }
 
         @Override
         public Item next() {
-            if (currentNode == null) {
+            if (currentNode == null || currentNode.item == null) {
                 throw new NoSuchElementException();
             }
             Item item = currentNode.item;
             currentNode = currentNode.next;
             if (item == null) {
                 item = currentNode.item;
+                currentNode = currentNode.next;
+            }
+            if (currentNode != null && currentNode.item == null) {
                 currentNode = currentNode.next;
             }
             return item;

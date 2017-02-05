@@ -1,3 +1,5 @@
+import edu.princeton.cs.algs4.StdRandom;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -27,13 +29,24 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         }
 
         rQu.dequeue();
-        rQu.enqueue("");
         rQu.dequeue();
+        rQu.enqueue("f1");
         System.out.println("********************");
         Iterator<String> iter2 = rQu.iterator();
         while (iter2.hasNext()) {
             System.out.println(iter2.next());
         }
+
+        System.out.println("********************");
+        rQu.enqueue("f8");
+        rQu.enqueue("f9");
+        rQu.enqueue("f10");
+        rQu.enqueue("f11");
+
+        System.out.println(rQu.sample());
+        System.out.println(rQu.sample());
+        System.out.println(rQu.sample());
+
     }
 
     public RandomizedQueue() {
@@ -80,7 +93,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (size == 0) {
             throw new NoSuchElementException();
         }
-        return null;
+        return queue[StdRandom.uniform(enQuIndex+1,deQuIndex+1)];
     }
 
     @Override

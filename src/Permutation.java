@@ -8,8 +8,15 @@ public class Permutation {
     public static void main(String[] args){
 
         int k = StdIn.readInt();
-        String s = StdIn.readString();
-
-
+        String ip = StdIn.readString();
+        String[] inputs = ip.split(" ");
+        RandomizedQueue<String> rQu = new RandomizedQueue<>();
+        for(String s: inputs) {
+            rQu.enqueue(s);
+        }
+        while (k > 0) {
+            System.out.println(rQu.sample());
+            k--;
+        }
     }
 }
