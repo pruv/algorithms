@@ -15,7 +15,12 @@ public class Deque<Item> implements Iterable<Item> {
     public static void main(String[] args) {
         Deque<Integer> deque = new Deque<>();
         deque.addLast(1);
+        deque.addLast(2);
+        deque.addLast(3);
+        deque.addFirst(4);
         deque.removeFirst();
+
+//        System.out.println(deque.size());
 
         Iterator iter = deque.iterator();
         while (iter.hasNext()) {
@@ -155,7 +160,7 @@ public class Deque<Item> implements Iterable<Item> {
         Node currentNode;
 
         public DequeIterator() {
-            if (first == null) {
+            if (first == null || first.item == null) {
                 currentNode = linkingNode.next;
             } else {
                 this.currentNode = first;

@@ -1,3 +1,5 @@
+package algorithms.week2;
+
 import edu.princeton.cs.algs4.StdRandom;
 
 import java.util.Iterator;
@@ -11,41 +13,27 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private int size = 0;
     private Item[] queue;
     private int enQuIndex = 0;
-    private int deQuIndex;
+    private int deQuIndex = 0;
 
     public static void main(String[] args) {
-        RandomizedQueue<String> rQu = new RandomizedQueue<>();
-        rQu.enqueue("f1");
-        rQu.enqueue("f2");
-        System.out.println("deQud: " + rQu.dequeue());
-        rQu.enqueue("f3");
-        rQu.enqueue("f4");
-        rQu.enqueue("f5");
-        System.out.println("deQud: " + rQu.dequeue());
-        rQu.enqueue("f6");
-        Iterator<String> iter = rQu.iterator();
-        while (iter.hasNext()) {
-            System.out.println(iter.next());
+        RandomizedQueue<Integer> rq = new RandomizedQueue<>();
+        rq.enqueue(34);
+        rq.isEmpty();
+        rq.enqueue(33);
+        rq.enqueue(41);
+        rq.enqueue(4);
+        rq.enqueue(37);
+        rq.enqueue(35);
+        rq.isEmpty();
+        rq.dequeue();
+        rq.enqueue(39);
+        rq.enqueue(24);
+        rq.enqueue(30);
+
+        Iterator iterator = rq.iterator();
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
         }
-
-        rQu.dequeue();
-        rQu.dequeue();
-        rQu.enqueue("f1");
-        System.out.println("********************");
-        Iterator<String> iter2 = rQu.iterator();
-        while (iter2.hasNext()) {
-            System.out.println(iter2.next());
-        }
-
-        System.out.println("********************");
-        rQu.enqueue("f8");
-        rQu.enqueue("f9");
-        rQu.enqueue("f10");
-        rQu.enqueue("f11");
-
-        System.out.println(rQu.sample());
-        System.out.println(rQu.sample());
-        System.out.println(rQu.sample());
 
     }
 
@@ -70,7 +58,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         queue[enQuIndex] = item;
         enQuIndex--;
         size++;
-        if (size == queue.length) {
+        if (size == queue.length || enQuIndex == -1) {
             resize(queue.length * 2);
         }
     }
@@ -93,7 +81,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (size == 0) {
             throw new NoSuchElementException();
         }
-        return queue[StdRandom.uniform(enQuIndex+1,deQuIndex+1)];
+        return queue[StdRandom.uniform(enQuIndex + 1, deQuIndex + 1)];
     }
 
     @Override
@@ -103,19 +91,30 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     private class RandomizedQueueIterator implements Iterator<Item> {
 
-        int index = deQuIndex;
+        int index = 0;
+        private Item[] elems;
+
+        public RandomizedQueueIterator() {
+            elems = (Item[]) new Object[size];
+            int j = 0;
+            for (int i = deQuIndex; i > enQuIndex; i--) {
+                elems[j] = queue[i];
+                j++;
+            }
+            StdRandom.shuffle(elems);
+        }
 
         @Override
         public boolean hasNext() {
-            return index > enQuIndex;
+            return index < elems.length;
         }
 
         @Override
         public Item next() {
-            if (index <= enQuIndex) {
+            if (index >= elems.length) {
                 throw new NoSuchElementException();
             }
-            return queue[index--];
+            return elems[index++];
         }
     }
 
