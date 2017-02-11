@@ -1,7 +1,8 @@
 package algorithms.sort;
 
 /**
- * Created by java on 2/8/17.
+ * number of compares: (N-1) + (N-2) ......1 = N^2/2 (always quadratic)
+ * number of exchanges: N
  */
 public class SelectionSort {
 
