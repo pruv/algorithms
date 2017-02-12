@@ -38,7 +38,6 @@ public class InsetionSort {
                 }
             }
         }
-        System.out.println("Count: " + cnt);
     }
 
     private static boolean less(Comparable a, Comparable b) {

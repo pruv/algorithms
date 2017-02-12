@@ -69,9 +69,15 @@ public class MergeSort {
     }
 
     private static boolean less(Comparable a, Comparable b) {
-        return true;
+        return a.compareTo(b) < 0;
     }
 
+    private static void exchange(Comparable[] a, int i, int j) {
+
+        Comparable swap = a[i];
+        a[i] = a[j];
+        a[j] = swap;
+    }
     private void sort(String[] original) {
         String[] copy = new String[original.length];
         for (int i = 0; i < original.length; i++) {
