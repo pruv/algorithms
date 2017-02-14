@@ -1,3 +1,5 @@
+package algorithms.week3;
+
 /*************************************************************************
  *  Compilation:  javac LineSegment.java
  *  Execution:    none
