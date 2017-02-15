@@ -3,14 +3,15 @@ package algorithms.sort;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
- * NlgN - fastest algorithm
- * 1/2N^2 worst case when it is sorted in reverse order
+ * Created by java on 2/14/17.
  */
-public class QuickSort {
+public class QuickSortImprovment {
+
+    private static final int CUTOFF = 20;
 
     public static void main(String[] args) {
         Integer[] a = {100, -3, 20, 50, 10, 11, 3, 0, 13, 5, 6, 70, -8};
-        QuickSort.sort(a);
+        QuickSortImprovment.sort(a);
         for (Integer i : a) {
             System.out.println(i);
         }
@@ -22,7 +23,8 @@ public class QuickSort {
     }
 
     private static void sort(Comparable[] a, int lo, int hi) {
-        if (hi <= lo) {
+        if (hi <= lo + CUTOFF -1) {
+//            InsetionSort.sort(a, lo, hi); use insertion sort instead of further recursion
             return;
         }
 

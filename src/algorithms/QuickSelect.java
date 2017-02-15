@@ -1,34 +1,39 @@
-package algorithms.sort;
+package algorithms;
 
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
- * NlgN - fastest algorithm
- * 1/2N^2 worst case when it is sorted in reverse order
+ * Given an array of N items find Kth largest element
+ * Ex: Min(k=0) Max(k=N-1) Median(k=N/2)
+ * <p>
+ * solution: sort and find kth element
+ * by using quick sort partitioning: after every partition if k is lesser or greater than j,
+ * just sort lower or upper half of the array and find k.
+ *
+ * performance: takes linear time on average
+ * N + N/2 + N/4 + ....1 = 2N
+ *
+ * worst case: 1/2N^2 (but highly unlikely as we shuffle it randomly always)
  */
-public class QuickSort {
+public class QuickSelect {
 
-    public static void main(String[] args) {
-        Integer[] a = {100, -3, 20, 50, 10, 11, 3, 0, 13, 5, 6, 70, -8};
-        QuickSort.sort(a);
-        for (Integer i : a) {
-            System.out.println(i);
+
+    public static Comparable select(Comparable[] a, int k) {
+        StdRandom.shuffle(a);
+        int lo = 0;
+        int hi = a.length - 1;
+
+        while (hi > lo) {
+            int j = partition(a, lo, hi);
+            if (j < k) {
+                lo = j + 1;
+            } else if (j > k) {
+                hi = j - 1;
+            } else {
+                return a[k];
+            }
         }
-    }
-
-    public static void sort(Comparable[] a) {
-        StdRandom.shuffle(a); // shuffle is needed to make sure performance is good
-        sort(a, 0, a.length - 1);
-    }
-
-    private static void sort(Comparable[] a, int lo, int hi) {
-        if (hi <= lo) {
-            return;
-        }
-
-        int j = partition(a, lo, hi);
-        sort(a, lo, j - 1);
-        sort(a, j + 1, hi);
+        return a[k];
     }
 
     private static int partition(Comparable[] a, int lo, int hi) {
